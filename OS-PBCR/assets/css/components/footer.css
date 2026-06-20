@@ -40,38 +40,6 @@
 
 }
 
-.footer-content a {
-
-    color: #000000;
-
-    font-weight: 700;
-
-    transition: all 0.2s ease;
-
-}
-
-.footer-content a:hover {
-
-    color: #000000;
-
-    text-decoration: underline;
-
-}
-
-.footer-links {
-
-    display: flex;
-
-    justify-content: center;
-
-    gap: 25px;
-
-    margin-top: 20px;
-
-    flex-wrap: wrap;
-
-}
-
 .footer-bottom {
 
     margin-top: 30px;
