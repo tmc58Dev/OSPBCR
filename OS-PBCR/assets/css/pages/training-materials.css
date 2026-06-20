@@ -1,0 +1,268 @@
+.training-hero {
+
+    min-height: 55vh;
+
+    display: flex;
+
+    align-items: center;
+
+    background:
+    linear-gradient(
+        135deg,
+        var(--primary),
+        var(--primary-dark)
+    );
+
+    color: var(--white);
+
+}
+
+.training-hero .hero-content {
+
+    max-width: 900px;
+
+}
+
+.training-hero .hero-tag {
+
+    display: inline-block;
+
+    padding: 10px 18px;
+
+    margin-bottom: 25px;
+
+    background: rgba(255,255,255,0.15);
+
+    border: 1px solid rgba(255,255,255,0.25);
+
+    color: var(--white);
+
+}
+
+.training-hero h1 {
+
+    color: var(--white);
+
+}
+
+.training-hero p {
+
+    color: rgba(255,255,255,0.95);
+
+}
+
+.search-wrapper {
+
+    max-width: 600px;
+
+    margin: auto;
+
+}
+
+.search-wrapper input {
+
+    width: 100%;
+
+    height: 65px;
+
+    border: 5px solid var(--border);
+
+    padding: 0 25px;
+
+    font-weight: 700;
+
+    background: var(--white);
+
+    transition: 0.3s;
+
+}
+
+.search-wrapper input:focus {
+
+    border-color: var(--primary);
+
+    outline: none;
+
+    box-shadow:
+    0 0 0 3px rgba(30,127,184,0.15);
+
+}
+
+.district-grid {
+
+    display: grid;
+
+    grid-template-columns: repeat(5, 1fr);
+
+    gap: 25px;
+
+}
+
+.district-card {
+
+    border: 5px solid var(--border);
+
+    padding: 30px;
+
+    background-color: #c8ad7f;
+
+    transition: 0.3s;
+
+}
+
+.district-card:hover {
+
+    transform: translateY(-8px);
+
+    border-color: var(--primary);
+
+    box-shadow:
+    0 10px 25px rgba(30,127,184,0.18);
+
+}
+
+.district-card h3 {
+
+    font-size: 1.2rem;
+
+    margin-bottom: 15px;
+
+    color: var(--primary);
+
+}
+
+.district-card p {
+
+    margin-bottom: 25px;
+
+    color: var(--text);
+
+}
+
+.download-btn {
+
+    display: inline-block;
+
+    padding: 12px 18px;
+
+    background: var(--accent);
+
+    color: var(--white);
+
+    border: none;
+
+    transition: 0.3s;
+
+    font-weight: 700;
+
+}
+
+.download-btn:hover {
+
+    background: #7b0036;
+
+    color: var(--white);
+
+    transform: translateY(-2px);
+
+}
+
+.download-btn:active {
+
+    transform: translateY(0);
+
+}
+
+
+
+
+
+
+
+
+
+
+/* =======================================
+   BUTTON GROUP
+======================================= */
+
+.button-group {
+
+    display: flex;
+
+    gap: 12px;
+
+    flex-wrap: wrap;
+
+}
+
+/* =======================================
+   VIEW BUTTON
+======================================= */
+
+.view-btn {
+
+    display: inline-block;
+
+    padding: 12px 18px;
+
+    background: var(--primary);
+
+    color: var(--white);
+
+    text-decoration: none;
+
+    font-weight: 700;
+
+    transition: 0.3s;
+
+}
+
+.view-btn:hover {
+
+    background: var(--primary-dark);
+
+    color: var(--white);
+
+    transform: translateY(-2px);
+
+}
+
+/* =======================================
+   DOWNLOAD BUTTON
+======================================= */
+
+.download-btn {
+
+    display: inline-block;
+
+    padding: 12px 18px;
+
+    background: var(--accent);
+
+    color: var(--white);
+
+    text-decoration: none;
+
+    font-weight: 700;
+
+    transition: 0.3s;
+
+}
+
+.download-btn:hover {
+
+    background: #7b0036;
+
+    color: var(--white);
+
+    transform: translateY(-2px);
+
+}
+
+.download-btn:active,
+.view-btn:active {
+
+    transform: translateY(0);
+
+}
