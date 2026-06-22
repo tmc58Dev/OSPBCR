@@ -73,7 +73,7 @@
 
 .map-container {
 
-    background-color: #c8ad7f;
+    background-color: var(--card-bg);
 
     border: 1px solid var(--border);
 
@@ -97,7 +97,7 @@
 
 .leaflet-container {
 
-    background: #ffffff;
+    background: var(--card-bg);
 }
 
 /* ======================================
@@ -106,21 +106,19 @@
 
 .district-label {
 
-    background: #ffffff !important;
+    background: var(--card-bg) !important;
 
-    border: 1px solid #000 !important;
+    border: 1px solid var(--border) !important;
 
     border-radius: 4px;
 
-    color: #000000 !important;
+    color: var(--text) !important;
 
-    font-size: 13px;
-
-    font-weight: 700 !important;
+    font-weight: 400 !important;
 
     padding: 4px 8px;
 
-    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    box-shadow: var(--shadow-sm);
 
     text-align: center;
 }
@@ -136,11 +134,11 @@
 
 .info-panel {
 
-    background-color: #c8ad7f;
+    background-color: var(--card-bg);
 
     border: 5px solid var(--border);
 
-    border-color: #000000;
+    border-color: var(--border);
 
     box-shadow: var(--shadow-sm);
 
@@ -157,9 +155,7 @@
 
     margin-bottom: 15px;
 
-    font-size: 1.8rem;
-
-    font-weight: 700;
+    font-weight: 600;
 }
 
 #infoPanel hr {
@@ -175,20 +171,16 @@
 
     margin-bottom: 18px;
 
-    color: #000000;
+    color: var(--text-body);
 
-    line-height: 1.7;
-
-    font-size: 1rem;
-
-    font-weight: 700;
+    line-height: 1.65;
 }
 
 #infoPanel strong {
 
     color: var(--primary);
 
-    font-weight: 700;
+    font-weight: 600;
 }
 
 /* ======================================
@@ -197,9 +189,9 @@
 
 .leaflet-popup-content {
 
-    font-weight: 700;
+    font-weight: 400;
 
-    color: #000;
+    color: var(--text-body);
 }
 
 /* ======================================
@@ -209,13 +201,13 @@
 .info-panel:hover {
 
     box-shadow:
-    0 10px 30px rgba(30,127,184,0.12);
+    var(--shadow-md);
 }
 
 .map-container:hover {
 
     box-shadow:
-    0 10px 30px rgba(30,127,184,0.12);
+    var(--shadow-md);
 }
 
 /* ======================================

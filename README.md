@@ -1,2 +1,1 @@
-# OSPBCR
-Website for OSPBCSR
+# OS-PBCR

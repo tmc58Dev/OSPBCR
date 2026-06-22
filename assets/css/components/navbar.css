@@ -25,18 +25,15 @@
 }
 
 .logo {
+    font-weight: 600;
 
-    font-size: 1.5rem;
-
-    font-weight: 700;
-
-    color: #000000;
+    color: var(--text);
 
 }
 
 .logo:hover {
 
-    color: #000000;
+    color: var(--primary);
 
 }
 
@@ -52,11 +49,9 @@
 
 .nav-menu a {
 
-    color: #000000;
+    color: var(--text);
 
-    font-size: 0.95rem;
-
-    font-weight: 700;
+    font-weight: 500;
 
     transition: all 0.2s ease;
 
@@ -66,7 +61,7 @@
 
 .nav-menu a:hover {
 
-    color: #000000;
+    color: var(--primary);
 
 }
 
@@ -97,7 +92,7 @@
 
 .nav-menu a.active {
 
-    color: #000000;
+    color: var(--primary);
 
 }
 
@@ -149,12 +144,9 @@
 }
 
 .logo-text {
+    font-weight: 600;
 
-    font-size: 1.2rem;
-
-    font-weight: 700;
-
-    color: #000000;
+    color: var(--text);
 
     margin-left: 10px;
 

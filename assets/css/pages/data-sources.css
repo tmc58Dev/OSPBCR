@@ -70,7 +70,7 @@
 
     padding: 0 20px;
 
-    font-weight: 700;
+    font-weight: 400;
 
     background: var(--white);
 
@@ -86,7 +86,7 @@
     outline: none;
 
     box-shadow:
-    0 0 0 3px rgba(30,127,184,0.15);
+    0 0 0 3px rgba(0, 91, 150, 0.12);
 
 }
 
@@ -106,8 +106,6 @@
 
     border: none;
 
-    font-weight: 700;
-
     cursor: pointer;
 
     transition: 0.3s;
@@ -116,7 +114,7 @@
 
 .source-controls button:hover {
 
-    background: #7b0036;
+    background: var(--secondary);
 
     transform: translateY(-2px);
 
@@ -167,7 +165,7 @@
 
 .sources-table tbody tr:hover {
 
-    background: #f2f8fc;
+    background: #edf5fb;
 
 }
 
@@ -195,7 +193,7 @@
 
     border: none;
 
-    font-weight: 700;
+    font-weight: 500;
 
     cursor: pointer;
 
@@ -205,16 +203,13 @@
 
 .pagination-container button:hover {
 
-    background: #7b0036;
+    background: var(--secondary);
 
     transform: translateY(-2px);
 
 }
 
 .pagination-container span {
-
-    font-weight: 700;
-
     color: var(--text);
 
 }
