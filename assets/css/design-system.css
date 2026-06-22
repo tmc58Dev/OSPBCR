@@ -6,10 +6,10 @@
     --accent: #00A6A6;
     --primary-gradient: linear-gradient(135deg, #003F6B 0%, #005B96 45%, #0A84C6 100%);
     --hover-gradient: linear-gradient(135deg, #005B96 0%, #0077B6 50%, #00A6A6 100%);
-    --light-bg: #F3E5AB;
-    --alternate-bg: #F3F6FA;
+    --light-bg: #EDF8FF; 
+    --alternate-bg: #F6F4FB;
     --card-bg: rgba(255, 255, 255, 0.98);
-    --white: #F3E5AB;
+    --white: #FAF9F6;
     --text: #111827;
     --text-body: #1F2937;
     --text-muted: #475569;
