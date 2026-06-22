@@ -111,3 +111,5 @@ function renderTeam(){
 }
 
 renderTeam();
+
+document.addEventListener("languagechange", renderTeam);

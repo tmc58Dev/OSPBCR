@@ -68,7 +68,7 @@ function renderTable() {
 
             <td>${item.district}</td>
 
-            <td>${item.target.toLocaleString()}</td>
+            <td>${item.target.toLocaleString(window.i18n?.getLanguage() || "en")}</td>
 
             <td>${item.submitted}</td>
 
@@ -97,12 +97,15 @@ function renderTable() {
 
     });
 
-    pageInfo.textContent =
-    `Page ${currentPage}`;
+    pageInfo.textContent = window.i18n
+        ? window.i18n.t("Page {{page}}", { page: currentPage })
+        : `Page ${currentPage}`;
 
 }
 
 renderTable();
+
+document.addEventListener("languagechange", renderTable);
 
 document
 .getElementById("searchDistrict")
@@ -114,6 +117,9 @@ document
     filteredData =
     districtData.filter(item =>
         item.district
+        .toLowerCase()
+        .includes(value) ||
+        (window.i18n?.t(item.district) || item.district)
         .toLowerCase()
         .includes(value)
     );

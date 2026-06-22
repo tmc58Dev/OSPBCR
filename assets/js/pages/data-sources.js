@@ -131,12 +131,15 @@ function renderFacilities() {
 
     });
 
-    pageInfo.textContent =
-    `Page ${currentPage}`;
+    pageInfo.textContent = window.i18n
+        ? window.i18n.t("Page {{page}}", { page: currentPage })
+        : `Page ${currentPage}`;
 
 }
 
 renderFacilities();
+
+document.addEventListener("languagechange", renderFacilities);
 
 document
 .getElementById("facilitySearch")
@@ -153,6 +156,10 @@ document
         ||
 
         item.district.toLowerCase().includes(value)
+
+        ||
+
+        (window.i18n?.t(item.district) || item.district).toLowerCase().includes(value)
 
     );
 

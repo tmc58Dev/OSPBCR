@@ -97,6 +97,8 @@ function renderDistricts(data){
 
 renderDistricts(districts);
 
+document.addEventListener("languagechange", () => renderDistricts(districts));
+
 document
 .getElementById("districtSearch")
 .addEventListener("input", function(){
@@ -106,7 +108,8 @@ document
 
     const filtered =
     districts.filter(district =>
-        district.toLowerCase().includes(value)
+        district.toLowerCase().includes(value) ||
+        (window.i18n?.t(district) || district).toLowerCase().includes(value)
     );
 
     renderDistricts(filtered);

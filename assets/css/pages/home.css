@@ -114,6 +114,7 @@
 .hero-text {
 
     max-width: 100%;
+    margin-left: 140px;
 
 }
 
@@ -156,6 +157,8 @@
     margin-bottom: 26px;
 
     max-width: 1000px;
+
+    font-size: calc(var(--font-size-h1) + 4px);
 
     color: #ffffff;
 
@@ -753,6 +756,7 @@
     .hero-text {
 
         max-width: 100%;
+        margin-left: 0;
 
     }
 

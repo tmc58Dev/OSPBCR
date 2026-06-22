@@ -83,6 +83,8 @@ function renderParticipants(data) {
 
 renderParticipants(participants);
 
+document.addEventListener("languagechange", filterParticipants);
+
 const searchInput =
 document.getElementById("searchInput");
 

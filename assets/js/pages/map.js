@@ -60,12 +60,21 @@ function updatePanel(districtName) {
     `;
 }
 
+let selectedDistrict = "Khordha";
+
+const renderSelectedDistrict = (districtName) => {
+    selectedDistrict = districtName;
+    updatePanel(districtName);
+};
+
+document.addEventListener("languagechange", () => renderSelectedDistrict(selectedDistrict));
+
 // =====================================
 // DEFAULT DISTRICT
 // =====================================
 
 window.addEventListener("load", () => {
-    updatePanel("Khordha");
+    renderSelectedDistrict("Khordha");
 });
 
 // =====================================
@@ -112,7 +121,7 @@ fetch("assets/data/Orissa.geojson")
                         color: "#000"
                     });
 
-                    updatePanel(districtName);
+                    renderSelectedDistrict(districtName);
                 },
 
                 mouseout: function(e) {
@@ -124,7 +133,7 @@ fetch("assets/data/Orissa.geojson")
 
                 click: function() {
 
-                    updatePanel(districtName);
+                    renderSelectedDistrict(districtName);
                 }
 
             });
