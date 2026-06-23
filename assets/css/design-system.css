@@ -151,17 +151,22 @@ main > .section:nth-of-type(odd),
 .footer-content h3 { color: var(--text); }
 .footer-content p, .footer-bottom p { color: var(--text-muted); }
 
-/* All internal heroes stay bright, with the brand gradient as an architectural accent. */
+/* Internal page heroes use the Odisha map as a right-side visual anchor. */
 .about-hero, .participants-hero, .status-hero, .sources-hero,
 .team-hero, .training-hero, .map-hero {
     position: relative;
     min-height: min(540px, 58vh);
     isolation: isolate;
     overflow: hidden;
-    color: var(--text);
+    color: var(--white);
     background:
-        radial-gradient(circle at 15% 15%, rgba(10,132,198,0.10), transparent 28rem),
-        linear-gradient(145deg, #FAF9F6 0%, #F3F6FA 72%, #EAF2F8 100%);
+        linear-gradient(
+            90deg,
+            rgba(0, 63, 107, 0.96) 0%,
+            rgba(0, 91, 150, 0.9) 38%,
+            rgba(0, 119, 182, 0.54) 64%,
+            rgba(237, 248, 255, 0.88) 100%
+        );
     border-bottom: 1px solid var(--border);
 }
 .about-hero::before, .participants-hero::before, .status-hero::before,
@@ -169,42 +174,47 @@ main > .section:nth-of-type(odd),
     content: "";
     position: absolute;
     z-index: -1;
-    width: min(42vw, 620px);
-    aspect-ratio: 1;
-    right: -8%;
-    top: 50%;
-    transform: translateY(-50%) rotate(12deg);
-    border-radius: 38% 62% 58% 42%;
-    background: var(--primary-gradient);
-    box-shadow: 0 30px 80px rgba(0,91,150,0.20);
-    opacity: 0.94;
+    inset: 0 0 0 auto;
+    width: min(54vw, 760px);
+    height: 100%;
+    background: url("../images/hero/Odisha_districts_map.png") right center / contain no-repeat;
+    opacity: 0.88;
 }
 .about-hero::after, .participants-hero::after, .status-hero::after,
 .sources-hero::after, .team-hero::after, .training-hero::after, .map-hero::after {
     content: "";
     position: absolute;
     z-index: -1;
-    right: 8%;
-    top: 18%;
-    width: 170px;
-    height: 170px;
-    border: 1px solid rgba(255,255,255,0.45);
-    border-radius: 50%;
+    inset: 0;
+    background:
+        linear-gradient(
+            90deg,
+            rgba(0, 63, 107, 0.24) 0%,
+            rgba(0, 91, 150, 0.12) 46%,
+            rgba(250, 249, 246, 0.2) 100%
+        );
 }
 .about-hero h1, .participants-hero h1, .status-hero h1, .sources-hero h1,
-.team-hero h1, .training-hero h1, .map-hero h1 { color: var(--text); }
+.team-hero h1, .training-hero h1, .map-hero h1 { color: var(--white); }
 .about-hero p, .participants-hero p, .status-hero p, .sources-hero p,
-.team-hero p, .training-hero p, .map-hero p { color: var(--text-muted); }
+.team-hero p, .training-hero p, .map-hero p { color: rgba(255,255,255,0.92); }
 .about-hero .hero-tag, .participants-hero .hero-tag, .status-hero .hero-tag,
 .sources-hero .hero-tag, .team-hero .hero-tag, .training-hero .hero-tag, .map-hero .hero-tag,
 .hero-tag {
     padding: 9px 15px;
-    color: var(--primary);
-    background: rgba(255,255,255,0.74);
-    border: 1px solid rgba(0,91,150,0.18);
+    color: var(--white);
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.25);
     border-radius: 999px;
     box-shadow: var(--shadow-sm);
     backdrop-filter: blur(10px);
+}
+
+.about-hero .hero-content, .participants-hero .hero-content, .status-hero .hero-content,
+.sources-hero .hero-content, .team-hero .hero-content, .training-hero .hero-content,
+.map-hero .hero-content {
+    max-width: min(760px, 58%);
+    margin-right: auto;
 }
 
 /* Home hero keeps the photography but places dark copy on a pearl glass panel. */
@@ -344,7 +354,27 @@ main > .section:nth-of-type(odd),
 @media (max-width: 991px) {
     .about-hero::before, .participants-hero::before, .status-hero::before,
     .sources-hero::before, .team-hero::before, .training-hero::before, .map-hero::before {
-        right: -24%; opacity: 0.22;
+        inset: 0 0 0 auto;
+        width: min(58vw, 520px);
+        opacity: 0.38;
+        background-size: contain;
+        background-position: right center;
+    }
+    .about-hero, .participants-hero, .status-hero, .sources-hero,
+    .team-hero, .training-hero, .map-hero {
+        background:
+            linear-gradient(
+                90deg,
+                rgba(0, 63, 107, 0.98) 0%,
+                rgba(0, 91, 150, 0.94) 48%,
+                rgba(0, 119, 182, 0.62) 76%,
+                rgba(237, 248, 255, 0.86) 100%
+            );
+    }
+    .about-hero .hero-content, .participants-hero .hero-content, .status-hero .hero-content,
+    .sources-hero .hero-content, .team-hero .hero-content, .training-hero .hero-content,
+    .map-hero .hero-content {
+        max-width: min(720px, 68%);
     }
     .hero-section .hero-content { margin: 0 auto; }
     .filters-container { grid-template-columns: 1fr 1fr; }
@@ -370,6 +400,28 @@ main > .section:nth-of-type(odd),
     .navbar-logo { height: 44px; }
     .hero-section { min-height: 720px; padding: 70px 0; }
     .hero-section .hero-content { width: calc(100% - 32px); padding: 30px 24px; }
+    .about-hero, .participants-hero, .status-hero, .sources-hero,
+    .team-hero, .training-hero, .map-hero {
+        min-height: 440px;
+        background:
+            linear-gradient(
+                90deg,
+                rgba(0, 63, 107, 0.99) 0%,
+                rgba(0, 91, 150, 0.96) 58%,
+                rgba(0, 119, 182, 0.68) 100%
+            );
+    }
+    .about-hero::before, .participants-hero::before, .status-hero::before,
+    .sources-hero::before, .team-hero::before, .training-hero::before, .map-hero::before {
+        width: 62vw;
+        opacity: 0.22;
+        background-position: right center;
+    }
+    .about-hero .hero-content, .participants-hero .hero-content, .status-hero .hero-content,
+    .sources-hero .hero-content, .team-hero .hero-content, .training-hero .hero-content,
+    .map-hero .hero-content {
+        max-width: 72%;
+    }
     .hero-controls { top: auto; bottom: 18px; justify-content: center; gap: 12px; }
     .hero-control { width: 46px; height: 46px; }
     .filters-container, .source-controls, .dashboard-controls { grid-template-columns: 1fr; flex-direction: column; }
