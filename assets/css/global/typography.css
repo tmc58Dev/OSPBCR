@@ -9,7 +9,7 @@
     --font-size-h2: clamp(1.75rem, 1vw + 1.35rem, 32px);
     --font-size-h3: clamp(1.25rem, 0.7vw + 1rem, 24px);
     --font-size-h4: clamp(1.25rem, 0.45vw + 1rem, 22px);
-    --font-size-nav: 13px;
+    --font-size-nav: 16px;
     --font-size-label: 14px;
     --font-size-meta: 13px;
     --font-weight-body: 400;

@@ -104,11 +104,12 @@ main > .section:nth-of-type(odd),
 }
 .nav-wrapper { min-height: 104px; align-items: center; gap: 0; }
 .nav-menu {
+    justify-content: flex-start;
     align-items: center;
     flex-wrap: nowrap;
     gap: 12px;
     height: 104px;
-    padding: 0 40px 0 10px;
+    padding: 0 24px;
     background: linear-gradient(90deg, #2C6F9B 0%, #005B96 42%, #003F6B 100%);
 }
 .nav-menu li,
@@ -126,6 +127,9 @@ main > .section:nth-of-type(odd),
     background: rgba(255, 255, 255, 0.10);
     box-shadow: 0 10px 22px rgba(0, 37, 64, 0.12);
 }
+.language-control {
+    margin-left: auto;
+}
 .logo-group:hover { transform: translateY(-2px); }
 .logo-text { color: var(--text); }
 .nav-left {
@@ -136,7 +140,7 @@ main > .section:nth-of-type(odd),
     box-shadow: 10px 0 24px rgba(15, 23, 42, 0.04);
 }
 .navbar-logo {
-    height: 68px;
+    height: 76px;
     filter: none;
 }
 .nav-menu a.active { background: rgba(255, 255, 255, 0.16); }
@@ -151,7 +155,7 @@ main > .section:nth-of-type(odd),
 .footer-content h3 { color: var(--text); }
 .footer-content p, .footer-bottom p { color: var(--text-muted); }
 
-/* Internal page heroes use the Odisha map as a right-side visual anchor. */
+/* Internal page heroes use a shared left image layer and right-side slider. */
 .about-hero, .participants-hero, .status-hero, .sources-hero,
 .team-hero, .training-hero, .map-hero {
     position: relative;
@@ -173,18 +177,24 @@ main > .section:nth-of-type(odd),
 .sources-hero::before, .team-hero::before, .training-hero::before, .map-hero::before {
     content: "";
     position: absolute;
-    z-index: -1;
-    inset: 0 0 0 auto;
-    width: min(54vw, 760px);
+    z-index: 0;
+    inset: 0 auto 0 0;
+    width: calc(100% - min(54vw, 760px));
     height: 100%;
-    background: url("../images/hero/Odisha_districts_map.png") right center / contain no-repeat;
+    background:
+        linear-gradient(
+            90deg,
+            rgba(0, 63, 107, 0.72),
+            rgba(0, 91, 150, 0.46)
+        ),
+        url("../IMAGES_PDF_PPT_EXCEL/hero/Cancer Registry.webp") left center / cover no-repeat;
     opacity: 0.88;
 }
 .about-hero::after, .participants-hero::after, .status-hero::after,
 .sources-hero::after, .team-hero::after, .training-hero::after, .map-hero::after {
     content: "";
     position: absolute;
-    z-index: -1;
+    z-index: 1;
     inset: 0;
     background:
         linear-gradient(
@@ -193,6 +203,12 @@ main > .section:nth-of-type(odd),
             rgba(0, 91, 150, 0.12) 46%,
             rgba(250, 249, 246, 0.2) 100%
         );
+}
+.about-hero .container-custom, .participants-hero .container-custom, .status-hero .container-custom,
+.sources-hero .container-custom, .team-hero .container-custom, .training-hero .container-custom,
+.map-hero .container-custom {
+    position: relative;
+    z-index: 2;
 }
 .about-hero h1, .participants-hero h1, .status-hero h1, .sources-hero h1,
 .team-hero h1, .training-hero h1, .map-hero h1 { color: var(--white); }
@@ -215,6 +231,52 @@ main > .section:nth-of-type(odd),
 .map-hero .hero-content {
     max-width: min(760px, 58%);
     margin-right: auto;
+}
+
+.sources-hero-slider {
+    position: absolute;
+    z-index: 0;
+    inset: 0 0 0 auto;
+    width: min(54vw, 760px);
+    height: 100%;
+    overflow: hidden;
+    pointer-events: none;
+    opacity: 0.88;
+}
+
+.sources-hero-slide {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    animation: sourcesHeroSlider 8s infinite;
+}
+
+.sources-hero-slide:nth-child(2) {
+    animation-delay: 4s;
+}
+
+.sources-hero-slide img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+}
+
+.sources-hero-slide.is-active img {
+    object-fit: cover;
+    object-position: center;
+}
+
+@keyframes sourcesHeroSlider {
+    0%,
+    45% {
+        opacity: 1;
+    }
+
+    50%,
+    100% {
+        opacity: 0;
+    }
 }
 
 /* Home hero keeps the photography but places dark copy on a pearl glass panel. */
@@ -354,11 +416,11 @@ main > .section:nth-of-type(odd),
 @media (max-width: 991px) {
     .about-hero::before, .participants-hero::before, .status-hero::before,
     .sources-hero::before, .team-hero::before, .training-hero::before, .map-hero::before {
-        inset: 0 0 0 auto;
-        width: min(58vw, 520px);
+        inset: 0 auto 0 0;
+        width: calc(100% - min(58vw, 520px));
         opacity: 0.38;
-        background-size: contain;
-        background-position: right center;
+        background-size: cover;
+        background-position: left center;
     }
     .about-hero, .participants-hero, .status-hero, .sources-hero,
     .team-hero, .training-hero, .map-hero {
@@ -375,6 +437,10 @@ main > .section:nth-of-type(odd),
     .sources-hero .hero-content, .team-hero .hero-content, .training-hero .hero-content,
     .map-hero .hero-content {
         max-width: min(720px, 68%);
+    }
+    .sources-hero-slider {
+        width: min(58vw, 520px);
+        opacity: 0.38;
     }
     .hero-section .hero-content { margin: 0 auto; }
     .filters-container { grid-template-columns: 1fr 1fr; }
@@ -397,7 +463,7 @@ main > .section:nth-of-type(odd),
 @media (max-width: 767px) {
     body { padding-top: var(--navbar-offset, 170px); }
     .section { padding: 68px 0; }
-    .navbar-logo { height: 44px; }
+    .navbar-logo { height: 52px; }
     .hero-section { min-height: 720px; padding: 70px 0; }
     .hero-section .hero-content { width: calc(100% - 32px); padding: 30px 24px; }
     .about-hero, .participants-hero, .status-hero, .sources-hero,
@@ -413,14 +479,18 @@ main > .section:nth-of-type(odd),
     }
     .about-hero::before, .participants-hero::before, .status-hero::before,
     .sources-hero::before, .team-hero::before, .training-hero::before, .map-hero::before {
-        width: 62vw;
+        width: 38vw;
         opacity: 0.22;
-        background-position: right center;
+        background-position: left center;
     }
     .about-hero .hero-content, .participants-hero .hero-content, .status-hero .hero-content,
     .sources-hero .hero-content, .team-hero .hero-content, .training-hero .hero-content,
     .map-hero .hero-content {
         max-width: 72%;
+    }
+    .sources-hero-slider {
+        width: 62vw;
+        opacity: 0.22;
     }
     .hero-controls { top: auto; bottom: 18px; justify-content: center; gap: 12px; }
     .hero-control { width: 46px; height: 46px; }

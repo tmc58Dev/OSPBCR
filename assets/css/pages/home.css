@@ -579,6 +579,20 @@
 
 }
 
+.collaboration-card--tmc {
+    --card-bg-image: url("../../IMAGES_PDF_PPT_EXCEL/logos/tmc-Photoroom.png");
+}
+
+.collaboration-card--niser {
+    --card-bg-image: url("../../IMAGES_PDF_PPT_EXCEL/logos/NISER Logo.png");
+    --card-bg-size: 68%;
+    --card-bg-size-hover: 76%;
+}
+
+.collaboration-card--odisha {
+    --card-bg-image: url("../../IMAGES_PDF_PPT_EXCEL/logos/odisha govt-Photoroom.png");
+}
+
 .collaboration-card::before {
 
     content: "";

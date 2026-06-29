@@ -4,56 +4,56 @@ const teamMembers = [
         name:"Dr Atul Budukh",
         designation:"Officer Incharge,Professor Epidemiology",
         department:"Medical Records & Cancer Registry, OS-PBCR Project",
-        image:"assets/images/team/ATUL SIR.png"
+        image:"assets/IMAGES_PDF_PPT_EXCEL/TEAM PAGE/ATUL SIR.png"
     },
 
     {
         name:"Mrs.Sushama Saoba",
         designation:"Scientific Officer E",
         department:"Medical Records & Cancer Registry, OS-PBCR Project",
-        image:"assets/images/team/SUSHMA MADAM.png"
+        image:"assets/IMAGES_PDF_PPT_EXCEL/TEAM PAGE/SUSHMA MADAM.png"
     },
 
     {
         name:"Mrs.Deepali Lokhande",
         designation:"Scientific Officer D",
         department:"Medical Records & Cancer Registry, OS-PBCR Project",
-        image:"assets/images/team/deepali madam.png"
+        image:"assets/IMAGES_PDF_PPT_EXCEL/TEAM PAGE/deepali madam.png"
     },
 
     {
         name:"Er. Pratik Sawant",
         designation:"Programmer",
         department:"Medical Records & Cancer Registry, OS-PBCR Project",
-        image:"assets/images/team/PRATIK SIR.png"
+        image:"assets/IMAGES_PDF_PPT_EXCEL/TEAM PAGE/PRATIK SIR.png"
     },
 
     // {
     //     name:"Mr. A. Das",
     //     designation:"Data Manager",
     //     department:"Medical Records & Cancer Registry, OS-PBCR Project",
-    //     image:"assets/images/team/member5.jpg"
+    //     image:"assets/IMAGES_PDF_PPT_EXCEL/TEAM PAGE/member5.jpg"
     // },
 
     // {
     //     name:"Dr. N. Pattnaik",
     //     designation:"Statistician",
     //     department:"Data Analytics",
-    //     image:"assets/images/team/member6.jpg"
+    //     image:"assets/IMAGES_PDF_PPT_EXCEL/TEAM PAGE/member6.jpg"
     // },
 
     // {
     //     name:"Dr. B. Nayak",
     //     designation:"Field Coordinator",
     //     department:"District Coordination",
-    //     image:"assets/images/team/member7.jpg"
+    //     image:"assets/IMAGES_PDF_PPT_EXCEL/TEAM PAGE/member7.jpg"
     // },
 
     // {
     //     name:"Ms. K. Behera",
     //     designation:"Research Associate",
     //     department:"Registry Support",
-    //     image:"assets/images/team/member8.jpg"
+    //     image:"assets/IMAGES_PDF_PPT_EXCEL/TEAM PAGE/member8.jpg"
     // }
 
 ];

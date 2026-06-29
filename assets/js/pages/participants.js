@@ -4,42 +4,42 @@ const participants = [
         name: "Dr. Rajesh Kumar",
         designation: "Oncologist",
         district: "Khordha",
-        image: "assets/images/participants/placeholder.jpg"
+        image: "assets/IMAGES_PDF_PPT_EXCEL/hero/rathyatra.jpg"
     },
 
     {
         name: "Dr. Ananya Mishra",
         designation: "Medical Officer",
         district: "Cuttack",
-        image: "assets/images/participants/placeholder.jpg"
+        image: "assets/IMAGES_PDF_PPT_EXCEL/hero/rathyatra.jpg"
     },
 
     {
         name: "Mr. Suresh Das",
         designation: "Data Officer",
         district: "Puri",
-        image: "assets/images/participants/placeholder.jpg"
+        image: "assets/IMAGES_PDF_PPT_EXCEL/hero/rathyatra.jpg"
     },
 
     {
         name: "Dr. Priya Patnaik",
         designation: "Public Health Specialist",
         district: "Angul",
-        image: "assets/images/participants/placeholder.jpg"
+        image: "assets/IMAGES_PDF_PPT_EXCEL/hero/rathyatra.jpg"
     },
 
     {
         name: "Dr. Manoj Sahoo",
         designation: "Oncologist",
         district: "Khordha",
-        image: "assets/images/participants/placeholder.jpg"
+        image: "assets/IMAGES_PDF_PPT_EXCEL/hero/rathyatra.jpg"
     },
 
     {
         name: "Dr. Deepak Mohanty",
         designation: "Medical Officer",
         district: "Cuttack",
-        image: "assets/images/participants/placeholder.jpg"
+        image: "assets/IMAGES_PDF_PPT_EXCEL/hero/rathyatra.jpg"
     }
 
 ];

@@ -10,7 +10,7 @@
         rgba(7, 34, 54, 0.78),
         rgba(7, 34, 54, 0.78)
     ),
-    url("../../images/hero/Odisha_districts_map.png");
+    url("../../IMAGES_PDF_PPT_EXCEL/hero/Odisha_districts_map.png");
 
     background-position: center;
 
@@ -860,6 +860,28 @@
 
 }
 
+.collaboration-card--tmc {
+
+    --card-bg-image: url("../../IMAGES_PDF_PPT_EXCEL/logos/tmc-Photoroom.png");
+
+}
+
+.collaboration-card--niser {
+
+    --card-bg-image: url("../../IMAGES_PDF_PPT_EXCEL/logos/NISER Logo.png");
+
+    --card-bg-size: 68%;
+
+    --card-bg-size-hover: 76%;
+
+}
+
+.collaboration-card--odisha {
+
+    --card-bg-image: url("../../IMAGES_PDF_PPT_EXCEL/logos/odisha govt-Photoroom.png");
+
+}
+
 .collaboration-card::before {
 
     content: "";
@@ -1063,7 +1085,7 @@ GALLERY SECTION
 
     background:
         linear-gradient(rgba(8, 36, 58, 0.44), rgba(8, 36, 58, 0.44)),
-        url("../../images/About Us/aboutpage6.webp") center/cover no-repeat;
+        url("../../IMAGES_PDF_PPT_EXCEL/ABOUT US PAGE/GALLERY/aboutpage6.webp") center/cover no-repeat;
 
     border-radius: 34px;
 

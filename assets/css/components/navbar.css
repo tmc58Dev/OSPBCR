@@ -62,10 +62,10 @@
     gap: 12px;
 
     align-items: center;
-    justify-content: flex-end;
+    justify-content: flex-start;
     flex-wrap: nowrap;
     margin: 0;
-    padding: 0 40px 0 10px;
+    padding: 0 24px;
     height: 102px;
     background: linear-gradient(90deg, #2C6F9B 0%, #005B96 42%, #003F6B 100%);
 
@@ -143,7 +143,7 @@
 
 .language-control {
     flex: 0 0 auto;
-    margin-left: 4px;
+    margin-left: auto;
 }
 
 .language-control select {
@@ -210,7 +210,7 @@
 
 .navbar-logo {
 
-    height: 64px;
+    height: 72px;
 
     width: auto;
 
@@ -238,7 +238,7 @@
 
     .navbar-logo {
 
-        height: 56px;
+        height: 64px;
 
     }
 
@@ -251,7 +251,7 @@
     .nav-menu {
 
         gap: 10px;
-        padding: 0 22px 0 24px;
+        padding: 0 18px;
 
     }
 
@@ -267,7 +267,7 @@
 
     .navbar-logo {
 
-        height: 48px;
+        height: 56px;
 
     }
 
@@ -276,7 +276,7 @@
     }
 
     .nav-menu {
-        padding: 0 20px 0 18px;
+        padding: 0 14px;
         gap: 6px;
     }
 
