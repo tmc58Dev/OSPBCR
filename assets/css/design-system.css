@@ -155,7 +155,7 @@ main > .section:nth-of-type(odd),
 .footer-content h3 { color: var(--text); }
 .footer-content p, .footer-bottom p { color: var(--text-muted); }
 
-/* Internal page heroes use a shared left image layer and right-side slider. */
+/* Internal page heroes use a shared Cancer Registry image layer. */
 .about-hero, .participants-hero, .status-hero, .sources-hero,
 .team-hero, .training-hero, .map-hero {
     position: relative;
@@ -178,8 +178,8 @@ main > .section:nth-of-type(odd),
     content: "";
     position: absolute;
     z-index: 0;
-    inset: 0 auto 0 0;
-    width: calc(100% - min(54vw, 760px));
+    inset: 0;
+    width: 100%;
     height: 100%;
     background:
         linear-gradient(
@@ -187,7 +187,7 @@ main > .section:nth-of-type(odd),
             rgba(0, 63, 107, 0.72),
             rgba(0, 91, 150, 0.46)
         ),
-        url("../IMAGES_PDF_PPT_EXCEL/hero/Cancer Registry.webp") left center / cover no-repeat;
+        url("../IMAGES_PDF_PPT_EXCEL/hero/Cancer Registry.webp") center center / cover no-repeat;
     opacity: 0.88;
 }
 .about-hero::after, .participants-hero::after, .status-hero::after,
@@ -231,52 +231,6 @@ main > .section:nth-of-type(odd),
 .map-hero .hero-content {
     max-width: min(760px, 58%);
     margin-right: auto;
-}
-
-.sources-hero-slider {
-    position: absolute;
-    z-index: 0;
-    inset: 0 0 0 auto;
-    width: min(54vw, 760px);
-    height: 100%;
-    overflow: hidden;
-    pointer-events: none;
-    opacity: 0.88;
-}
-
-.sources-hero-slide {
-    position: absolute;
-    inset: 0;
-    opacity: 0;
-    animation: sourcesHeroSlider 8s infinite;
-}
-
-.sources-hero-slide:nth-child(2) {
-    animation-delay: 4s;
-}
-
-.sources-hero-slide img {
-    width: 100%;
-    height: 100%;
-    display: block;
-    object-fit: cover;
-}
-
-.sources-hero-slide.is-active img {
-    object-fit: cover;
-    object-position: center;
-}
-
-@keyframes sourcesHeroSlider {
-    0%,
-    45% {
-        opacity: 1;
-    }
-
-    50%,
-    100% {
-        opacity: 0;
-    }
 }
 
 /* Home hero keeps the photography but places dark copy on a pearl glass panel. */
@@ -416,11 +370,9 @@ main > .section:nth-of-type(odd),
 @media (max-width: 991px) {
     .about-hero::before, .participants-hero::before, .status-hero::before,
     .sources-hero::before, .team-hero::before, .training-hero::before, .map-hero::before {
-        inset: 0 auto 0 0;
-        width: calc(100% - min(58vw, 520px));
         opacity: 0.38;
         background-size: cover;
-        background-position: left center;
+        background-position: center center;
     }
     .about-hero, .participants-hero, .status-hero, .sources-hero,
     .team-hero, .training-hero, .map-hero {
@@ -437,10 +389,6 @@ main > .section:nth-of-type(odd),
     .sources-hero .hero-content, .team-hero .hero-content, .training-hero .hero-content,
     .map-hero .hero-content {
         max-width: min(720px, 68%);
-    }
-    .sources-hero-slider {
-        width: min(58vw, 520px);
-        opacity: 0.38;
     }
     .hero-section .hero-content { margin: 0 auto; }
     .filters-container { grid-template-columns: 1fr 1fr; }
@@ -479,18 +427,13 @@ main > .section:nth-of-type(odd),
     }
     .about-hero::before, .participants-hero::before, .status-hero::before,
     .sources-hero::before, .team-hero::before, .training-hero::before, .map-hero::before {
-        width: 38vw;
         opacity: 0.22;
-        background-position: left center;
+        background-position: center center;
     }
     .about-hero .hero-content, .participants-hero .hero-content, .status-hero .hero-content,
     .sources-hero .hero-content, .team-hero .hero-content, .training-hero .hero-content,
     .map-hero .hero-content {
         max-width: 72%;
-    }
-    .sources-hero-slider {
-        width: 62vw;
-        opacity: 0.22;
     }
     .hero-controls { top: auto; bottom: 18px; justify-content: center; gap: 12px; }
     .hero-control { width: 46px; height: 46px; }

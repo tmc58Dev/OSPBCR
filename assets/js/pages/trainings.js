@@ -33,11 +33,52 @@ const trainingGalleryImages = [
 
 document.addEventListener("DOMContentLoaded", async () => {
 
+    initializeDistrictTrainingToggle();
     renderTrainingGallery();
     initializeTrainingCarousel();
     await initializeDistrictTrainingExplorer();
 
 });
+
+function initializeDistrictTrainingToggle() {
+
+    const expandableShell = document.querySelector("[data-training-expandable]");
+    const toggleButton = document.querySelector("[data-training-toggle]");
+    const expandableContent = document.querySelector("[data-training-expandable-content]");
+
+    if (!expandableShell || !toggleButton || !expandableContent) {
+        return;
+    }
+
+    function syncExpandedHeight() {
+        if (!expandableShell.classList.contains("is-expanded")) {
+            return;
+        }
+
+        expandableShell.style.setProperty(
+            "--district-expanded-height",
+            `${expandableContent.scrollHeight}px`
+        );
+    }
+
+    toggleButton.addEventListener("click", () => {
+        const isExpanded = expandableShell.classList.toggle("is-expanded");
+
+        if (isExpanded) {
+            expandableShell.style.setProperty(
+                "--district-expanded-height",
+                `${expandableContent.scrollHeight}px`
+            );
+        }
+
+        toggleButton.textContent = isExpanded ? "Show Less" : "Learn More";
+        toggleButton.setAttribute("aria-expanded", String(isExpanded));
+        expandableContent.setAttribute("aria-hidden", String(!isExpanded));
+    });
+
+    window.addEventListener("resize", syncExpandedHeight);
+
+}
 
 function renderTrainingGallery() {
 

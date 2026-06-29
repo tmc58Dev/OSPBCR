@@ -45,28 +45,13 @@
 
             </div>
 
-            <div class="sources-hero-slider" aria-hidden="true">
-                <div class="sources-hero-slide is-active">
-                    <img
-                        src="assets/IMAGES_PDF_PPT_EXCEL/hero/Odisha_districts_map.webp"
-                        alt=""
-                    >
-                </div>
-                <div class="sources-hero-slide">
-                    <img
-                        src="assets/IMAGES_PDF_PPT_EXCEL/hero/rathyatra.webp"
-                        alt=""
-                    >
-                </div>
-            </div>
-
         </section>
 
         <section class="section district-training-section">
 
             <div class="container-custom">
 
-                <div class="district-training-shell fade-up">
+                <div class="district-training-shell district-training-shell-collapsible fade-up" data-training-expandable>
 
                 <div class="section-heading district-training-heading">
 
@@ -78,6 +63,34 @@
                     </p>
 
                 </div>
+
+                <div class="district-training-preview">
+                    <div class="district-training-preview-copy">
+                        <span class="section-kicker">Quick Preview</span>
+                        <h3>What this section includes</h3>
+                        <p>
+                            Executive summary highlights, participant statistics, district gallery images,
+                            and district-wise training records are available inside this section.
+                        </p>
+                    </div>
+
+                    <button
+                        class="view-btn district-training-toggle"
+                        type="button"
+                        aria-expanded="false"
+                        aria-controls="districtTrainingExpandableContent"
+                        data-training-toggle
+                    >
+                        Learn More
+                    </button>
+                </div>
+
+                <div
+                    class="district-training-expandable"
+                    id="districtTrainingExpandableContent"
+                    data-training-expandable-content
+                    aria-hidden="true"
+                >
 
                 <div class="summary-shell fade-up">
 
@@ -241,6 +254,8 @@
                     </div>
 
                     <div id="districtTrainingDetails"></div>
+
+                </div>
 
                 </div>
 

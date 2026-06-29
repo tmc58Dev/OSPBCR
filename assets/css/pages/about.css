@@ -9,8 +9,7 @@
     linear-gradient(
         rgba(7, 34, 54, 0.78),
         rgba(7, 34, 54, 0.78)
-    ),
-    url("../../IMAGES_PDF_PPT_EXCEL/hero/Odisha_districts_map.png");
+    );
 
     background-position: center;
 
