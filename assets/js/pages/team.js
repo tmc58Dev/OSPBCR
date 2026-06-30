@@ -1,112 +1,195 @@
-const teamMembers = [
+const fallbackPortrait = "assets/IMAGES_PDF_PPT_EXCEL/hero/Cancer Registry.webp";
 
+const teamSections = [
     {
-        name:"Dr Atul Budukh",
-        designation:"Officer Incharge,Professor Epidemiology",
-        department:"Medical Records & Cancer Registry, OS-PBCR Project",
-        image:"assets/IMAGES_PDF_PPT_EXCEL/TEAM PAGE/ATUL SIR.png"
+        title: "Department of Health and Family Welfare, Government of Odisha",
+        members: [
+            {
+                name: "Smt Aswathy S.",
+                designation: "Commissioner cum Secretary"
+            },
+            {
+                name: "Dr Nilakantha Mishra",
+                designation: "Director of Public Health, Odisha"
+            },
+            {
+                name: "Dr Susanta Kumar Swain",
+                designation: "Additional Director NCD cum State Nodal Officer, Cancer Care"
+            },
+            {
+                name: "Dr Roma Rattan",
+                designation: "Additional DMET"
+            },
+            {
+                name: "Chief District Medical Officers (CDMOs) of all districts",
+                designation: "District Health Leadership"
+            }
+        ]
     },
-
     {
-        name:"Mrs.Sushama Saoba",
-        designation:"Scientific Officer E",
-        department:"Medical Records & Cancer Registry, OS-PBCR Project",
-        image:"assets/IMAGES_PDF_PPT_EXCEL/TEAM PAGE/SUSHMA MADAM.png"
+        title: "Tata Memorial Centre (TMC), Mumbai",
+        members: [
+            {
+                name: "Dr Sudeep Gupta",
+                designation: "Director, TMC"
+            },
+            {
+                name: "Dr Pankaj Chaturvedi",
+                designation: "Director, ACTREC, TMC"
+            },
+            {
+                name: "Dr Rajesh Dikshit",
+                designation: "Director, CCE, TMC"
+            },
+            {
+                name: "Dr Gauravi Mishra",
+                designation: "Deputy Director, CCE, TMC"
+            },
+            {
+                name: "Dr Atul Budukh",
+                designation: "Professor, Epidemiology",
+                image: "assets/IMAGES_PDF_PPT_EXCEL/TEAM PAGE/ATUL SIR.png"
+            },
+            {
+                name: "Dr Lingaraj Nayak",
+                designation: "Professor, Medical Oncology"
+            }
+        ]
     },
-
     {
-        name:"Mrs.Deepali Lokhande",
-        designation:"Scientific Officer D",
-        department:"Medical Records & Cancer Registry, OS-PBCR Project",
-        image:"assets/IMAGES_PDF_PPT_EXCEL/TEAM PAGE/deepali madam.png"
+        title: "National Institute of Science Education and Research (NISER), Jatni, Odisha",
+        members: [
+            {
+                name: "Prof. Hirendra Nath Ghosh",
+                designation: "Director, NISER"
+            },
+            {
+                name: "Prof. A. Srinivasan",
+                designation: "Dean, Faculty Affairs"
+            },
+            {
+                name: "Prof. Bedangadas Mohanty",
+                designation: "Head, Centre for Medical & Radiation Physics"
+            },
+            {
+                name: "Mr Abhaya Kumar Mohanty",
+                designation: "Administrative Officer-II"
+            },
+            {
+                name: "Mr. Prasanna Kumar Muduli",
+                designation: "Scientific Officer"
+            },
+            {
+                name: "Dr. Bandita Dash",
+                designation: "Scientific Officer (Medical)"
+            },
+            {
+                name: "Dr. Biswajit Mishra",
+                designation: "Scientific Officer (Medical)"
+            }
+        ]
     },
-
     {
-        name:"Er. Pratik Sawant",
-        designation:"Programmer",
-        department:"Medical Records & Cancer Registry, OS-PBCR Project",
-        image:"assets/IMAGES_PDF_PPT_EXCEL/TEAM PAGE/PRATIK SIR.png"
-    },
-
-    // {
-    //     name:"Mr. A. Das",
-    //     designation:"Data Manager",
-    //     department:"Medical Records & Cancer Registry, OS-PBCR Project",
-    //     image:"assets/IMAGES_PDF_PPT_EXCEL/TEAM PAGE/member5.jpg"
-    // },
-
-    // {
-    //     name:"Dr. N. Pattnaik",
-    //     designation:"Statistician",
-    //     department:"Data Analytics",
-    //     image:"assets/IMAGES_PDF_PPT_EXCEL/TEAM PAGE/member6.jpg"
-    // },
-
-    // {
-    //     name:"Dr. B. Nayak",
-    //     designation:"Field Coordinator",
-    //     department:"District Coordination",
-    //     image:"assets/IMAGES_PDF_PPT_EXCEL/TEAM PAGE/member7.jpg"
-    // },
-
-    // {
-    //     name:"Ms. K. Behera",
-    //     designation:"Research Associate",
-    //     department:"Registry Support",
-    //     image:"assets/IMAGES_PDF_PPT_EXCEL/TEAM PAGE/member8.jpg"
-    // }
-
+        title: "Centre for Cancer Epidemiology (CCE), TMC, Mumbai",
+        members: [
+            {
+                name: "Dr Suvarna Gore",
+                designation: "Scientific Officer"
+            },
+            {
+                name: "Ms Sushama Saoba",
+                designation: "Scientific Assistant",
+                image: "assets/IMAGES_PDF_PPT_EXCEL/TEAM PAGE/SUSHMA MADAM.png"
+            },
+            {
+                name: "Mrs Deepali Lokhande",
+                designation: "Scientific Assistant",
+                image: "assets/IMAGES_PDF_PPT_EXCEL/TEAM PAGE/deepali madam.png"
+            },
+            {
+                name: "Ms Sonali Bagal",
+                designation: "Research Co-ordinator",
+                image: "assets/IMAGES_PDF_PPT_EXCEL/TEAM PAGE/SONALI MADAM.png"
+            },
+            {
+                name: "Mr Pratik Sawant",
+                designation: "Programmer",
+                image: "assets/IMAGES_PDF_PPT_EXCEL/TEAM PAGE/PRATIK SIR.png"
+            },
+            {
+                name: "Ms Samyukta Shivshankar",
+                designation: "Project Manager"
+            }
+        ]
+    }
 ];
 
-const teamGrid =
-document.getElementById("teamGrid");
+const teamGrid = document.getElementById("teamGrid");
 
-function renderTeam(){
+const t = (key, replacements = {}) => {
+    if (window.i18n) return window.i18n.t(key, replacements);
 
-    teamGrid.innerHTML = "";
+    return Object.entries(replacements).reduce(
+        (value, [name, replacement]) => value.replaceAll(`{{${name}}}`, replacement),
+        key
+    );
+};
 
-    teamMembers.forEach(member => {
+function getInitials(name) {
+    return name
+        .replace(/\([^)]*\)/g, "")
+        .split(/\s+/)
+        .filter(Boolean)
+        .slice(0, 2)
+        .map((part) => part[0])
+        .join("")
+        .toUpperCase();
+}
 
-        teamGrid.innerHTML += `
-
-        <div class="team-card fade-up">
-
-            <div class="team-image">
-
-                <img
-                    src="${member.image}"
-                    alt="${member.name}"
-                >
-
-            </div>
-
-            <div class="team-content">
-
-                <h3 class="team-name">
-
-                    ${member.name}
-
-                </h3>
-
-                <p class="team-designation">
-
-                    ${member.designation}
-
-                </p>
-
-                <p class="team-department">
-
-                    ${member.department}
-
-                </p>
-
-            </div>
-
-        </div>
-
+function renderPortrait(member) {
+    if (member.image) {
+        return `
+            <img
+                src="${member.image}"
+                alt="${member.name}"
+            >
         `;
+    }
 
-    });
+    return `
+        <img
+            src="${fallbackPortrait}"
+            alt=""
+            aria-hidden="true"
+        >
+        <span class="team-initials">${getInitials(member.name)}</span>
+    `;
+}
+
+function renderTeam() {
+
+    teamGrid.innerHTML = teamSections.map((section) => `
+        <section class="team-group fade-up">
+            <div class="team-group-heading">
+                <h2>${t(section.title)}</h2>
+            </div>
+
+            <div class="team-section-grid">
+                ${section.members.map((member) => `
+                    <article class="team-card fade-up">
+                        <div class="team-image ${member.image ? "" : "team-image-placeholder"}">
+                            ${renderPortrait(member)}
+                        </div>
+
+                        <div class="team-content">
+                            <h3 class="team-name">${member.name}</h3>
+                            <p class="team-designation">${t(member.designation)}</p>
+                        </div>
+                    </article>
+                `).join("")}
+            </div>
+        </section>
+    `).join("");
 
 }
 

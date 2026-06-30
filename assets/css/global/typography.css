@@ -2,7 +2,9 @@
 
 :root {
     --font-family-base: 'Manrope', 'Noto Sans Devanagari', 'Noto Sans Oriya', sans-serif;
-    --font-family-display: 'Source Serif 4', Georgia, serif;
+    --font-family-display: 'Source Serif 4', 'Noto Sans Devanagari', 'Noto Sans Oriya', Georgia, serif;
+    --font-family-devanagari: 'Noto Sans Devanagari', 'Manrope', sans-serif;
+    --font-family-odia: 'Noto Sans Oriya', 'Manrope', sans-serif;
     --font-size-body: 16px;
     --line-height-body: 1.65;
     --font-size-h1: clamp(2.25rem, 2.4vw + 1.1rem, 40px);
@@ -29,7 +31,7 @@ html {
 }
 
 body {
-    font-family: "Noto Sans Devanagari", "Noto Sans Oriya", var(--font-family-base);
+    font-family: var(--font-family-base);
     font-size: var(--font-size-body);
     font-weight: var(--font-weight-body);
     color: var(--text-body);
@@ -41,9 +43,33 @@ body {
     -moz-osx-font-smoothing: grayscale;
 }
 
-html[data-language="hi"] body,
+html[data-language="hi"] body {
+    font-family: var(--font-family-devanagari);
+}
+
 html[data-language="or"] body {
-    font-family: "Noto Sans Devanagari", "Noto Sans Oriya", var(--font-family-base);
+    font-family: var(--font-family-odia);
+}
+
+html[data-language="hi"] h1,
+html[data-language="hi"] h2,
+html[data-language="hi"] h3,
+html[data-language="hi"] h4,
+html[data-language="hi"] h5,
+html[data-language="hi"] h6,
+html[data-language="or"] h1,
+html[data-language="or"] h2,
+html[data-language="or"] h3,
+html[data-language="or"] h4,
+html[data-language="or"] h5,
+html[data-language="or"] h6 {
+    font-family: inherit;
+    letter-spacing: 0;
+}
+
+html[data-language="hi"] *,
+html[data-language="or"] * {
+    letter-spacing: 0;
 }
 
 h1,

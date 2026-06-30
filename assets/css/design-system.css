@@ -157,7 +157,7 @@ main > .section:nth-of-type(odd),
 
 /* Internal page heroes use a shared Cancer Registry image layer. */
 .about-hero, .participants-hero, .status-hero, .sources-hero,
-.team-hero, .training-hero, .map-hero {
+.team-hero, .training-hero, .training-materials-hero, .map-hero {
     position: relative;
     min-height: min(540px, 58vh);
     isolation: isolate;
@@ -174,7 +174,8 @@ main > .section:nth-of-type(odd),
     border-bottom: 1px solid var(--border);
 }
 .about-hero::before, .participants-hero::before, .status-hero::before,
-.sources-hero::before, .team-hero::before, .training-hero::before, .map-hero::before {
+.sources-hero::before, .team-hero::before, .training-hero::before,
+.training-materials-hero::before, .map-hero::before {
     content: "";
     position: absolute;
     z-index: 0;
@@ -191,7 +192,8 @@ main > .section:nth-of-type(odd),
     opacity: 0.88;
 }
 .about-hero::after, .participants-hero::after, .status-hero::after,
-.sources-hero::after, .team-hero::after, .training-hero::after, .map-hero::after {
+.sources-hero::after, .team-hero::after, .training-hero::after,
+.training-materials-hero::after, .map-hero::after {
     content: "";
     position: absolute;
     z-index: 1;
@@ -206,16 +208,17 @@ main > .section:nth-of-type(odd),
 }
 .about-hero .container-custom, .participants-hero .container-custom, .status-hero .container-custom,
 .sources-hero .container-custom, .team-hero .container-custom, .training-hero .container-custom,
-.map-hero .container-custom {
+.training-materials-hero .container-custom, .map-hero .container-custom {
     position: relative;
     z-index: 2;
 }
 .about-hero h1, .participants-hero h1, .status-hero h1, .sources-hero h1,
-.team-hero h1, .training-hero h1, .map-hero h1 { color: var(--white); }
+.team-hero h1, .training-hero h1, .training-materials-hero h1, .map-hero h1 { color: var(--white); }
 .about-hero p, .participants-hero p, .status-hero p, .sources-hero p,
-.team-hero p, .training-hero p, .map-hero p { color: rgba(255,255,255,0.92); }
+.team-hero p, .training-hero p, .training-materials-hero p, .map-hero p { color: rgba(255,255,255,0.92); }
 .about-hero .hero-tag, .participants-hero .hero-tag, .status-hero .hero-tag,
-.sources-hero .hero-tag, .team-hero .hero-tag, .training-hero .hero-tag, .map-hero .hero-tag,
+.sources-hero .hero-tag, .team-hero .hero-tag, .training-hero .hero-tag,
+.training-materials-hero .hero-tag, .map-hero .hero-tag,
 .hero-tag {
     padding: 9px 15px;
     color: var(--white);
@@ -228,7 +231,7 @@ main > .section:nth-of-type(odd),
 
 .about-hero .hero-content, .participants-hero .hero-content, .status-hero .hero-content,
 .sources-hero .hero-content, .team-hero .hero-content, .training-hero .hero-content,
-.map-hero .hero-content {
+.training-materials-hero .hero-content, .map-hero .hero-content {
     max-width: min(760px, 58%);
     margin-right: auto;
 }
@@ -369,13 +372,14 @@ main > .section:nth-of-type(odd),
 
 @media (max-width: 991px) {
     .about-hero::before, .participants-hero::before, .status-hero::before,
-    .sources-hero::before, .team-hero::before, .training-hero::before, .map-hero::before {
+    .sources-hero::before, .team-hero::before, .training-hero::before,
+    .training-materials-hero::before, .map-hero::before {
         opacity: 0.38;
         background-size: cover;
         background-position: center center;
     }
     .about-hero, .participants-hero, .status-hero, .sources-hero,
-    .team-hero, .training-hero, .map-hero {
+    .team-hero, .training-hero, .training-materials-hero, .map-hero {
         background:
             linear-gradient(
                 90deg,
@@ -387,7 +391,7 @@ main > .section:nth-of-type(odd),
     }
     .about-hero .hero-content, .participants-hero .hero-content, .status-hero .hero-content,
     .sources-hero .hero-content, .team-hero .hero-content, .training-hero .hero-content,
-    .map-hero .hero-content {
+    .training-materials-hero .hero-content, .map-hero .hero-content {
         max-width: min(720px, 68%);
     }
     .hero-section .hero-content { margin: 0 auto; }
@@ -415,7 +419,7 @@ main > .section:nth-of-type(odd),
     .hero-section { min-height: 720px; padding: 70px 0; }
     .hero-section .hero-content { width: calc(100% - 32px); padding: 30px 24px; }
     .about-hero, .participants-hero, .status-hero, .sources-hero,
-    .team-hero, .training-hero, .map-hero {
+    .team-hero, .training-hero, .training-materials-hero, .map-hero {
         min-height: 440px;
         background:
             linear-gradient(
@@ -426,13 +430,14 @@ main > .section:nth-of-type(odd),
             );
     }
     .about-hero::before, .participants-hero::before, .status-hero::before,
-    .sources-hero::before, .team-hero::before, .training-hero::before, .map-hero::before {
+    .sources-hero::before, .team-hero::before, .training-hero::before,
+    .training-materials-hero::before, .map-hero::before {
         opacity: 0.22;
         background-position: center center;
     }
     .about-hero .hero-content, .participants-hero .hero-content, .status-hero .hero-content,
     .sources-hero .hero-content, .team-hero .hero-content, .training-hero .hero-content,
-    .map-hero .hero-content {
+    .training-materials-hero .hero-content, .map-hero .hero-content {
         max-width: 72%;
     }
     .hero-controls { top: auto; bottom: 18px; justify-content: center; gap: 12px; }

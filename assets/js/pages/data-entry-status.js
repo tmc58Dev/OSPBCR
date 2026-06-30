@@ -47,6 +47,15 @@ const rowsPerPage = 10;
 
 let filteredData = [...districtData];
 
+const t = (key, replacements = {}) => {
+    if (window.i18n) return window.i18n.t(key, replacements);
+
+    return Object.entries(replacements).reduce(
+        (value, [name, replacement]) => value.replaceAll(`{{${name}}}`, replacement),
+        key
+    );
+};
+
 function renderTable() {
 
     tableBody.innerHTML = "";
@@ -66,13 +75,25 @@ function renderTable() {
 
         <tr>
 
-            <td>${item.district}</td>
+            <td>${t(item.district)}</td>
 
-            <td>${item.target.toLocaleString(window.i18n?.getLanguage() || "en")}</td>
+            <td>
+                <span data-count-to="${item.target}" data-count-format="locale">
+                    ${item.target.toLocaleString(window.i18n?.getLanguage() || "en")}
+                </span>
+            </td>
 
-            <td>${item.submitted}</td>
+            <td>
+                <span data-count-to="${item.submitted}">
+                    ${item.submitted}
+                </span>
+            </td>
 
-            <td>${item.pending}</td>
+            <td>
+                <span data-count-to="${item.pending}">
+                    ${item.pending}
+                </span>
+            </td>
 
             <td>
 
@@ -84,7 +105,9 @@ function renderTable() {
                     ></div>
 
                     <div class="progress-text">
-                        ${item.completion}%
+                        <span data-count-to="${item.completion}" data-count-suffix="%">
+                            ${item.completion}%
+                        </span>
                     </div>
 
                 </div>
@@ -97,9 +120,9 @@ function renderTable() {
 
     });
 
-    pageInfo.textContent = window.i18n
-        ? window.i18n.t("Page {{page}}", { page: currentPage })
-        : `Page ${currentPage}`;
+    pageInfo.textContent = t("Page {{page}}", { page: currentPage });
+
+    window.initializeCountUp?.(tableBody);
 
 }
 

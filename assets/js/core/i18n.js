@@ -3,13 +3,25 @@
 
     const supportedLanguages = ["en", "hi", "or"];
     const storageKey = "ospbcr-language";
+    const languageMeta = {
+        en: { htmlLang: "en", label: "English" },
+        hi: { htmlLang: "hi", label: "हिन्दी" },
+        or: { htmlLang: "or", label: "ଓଡ଼ିଆ" }
+    };
     const catalogs = new Map();
     const originalText = new WeakMap();
     const originalAttributes = new WeakMap();
     let currentLanguage = getSavedLanguage();
     const originalDocumentTitle = document.title;
+    const scriptBasePath = getScriptBasePath();
     let observer;
     let isApplying = false;
+
+    function getScriptBasePath() {
+        const script = document.currentScript;
+        const src = script?.getAttribute("src") || "assets/js/core/i18n.js";
+        return src.replace(/assets\/js\/core\/i18n\.js(?:\?.*)?$/, "assets/i18n/");
+    }
 
     function getSavedLanguage() {
         try {
@@ -36,7 +48,7 @@
         if (catalogs.has(language)) return catalogs.get(language);
 
         try {
-            const response = await fetch(`assets/i18n/${language}.json`);
+            const response = await fetch(`${scriptBasePath}${language}.json`);
             if (!response.ok) throw new Error(`HTTP ${response.status}`);
             const catalog = await response.json();
             catalogs.set(language, catalog);
@@ -63,6 +75,7 @@
 
     function translateTextNode(node) {
         if (!normalize(node.nodeValue)) return;
+        if (node.parentElement?.closest("[data-i18n-skip]")) return;
         if (!originalText.has(node)) originalText.set(node, normalize(node.nodeValue));
 
         const source = originalText.get(node);
@@ -74,6 +87,8 @@
     }
 
     function translateAttributes(element) {
+        if (element.closest?.("[data-i18n-skip]")) return;
+
         const attributes = ["placeholder", "title", "aria-label", "alt"];
         let stored = originalAttributes.get(element);
 
@@ -85,7 +100,10 @@
         attributes.forEach((attribute) => {
             if (!element.hasAttribute(attribute)) return;
             if (!(attribute in stored)) stored[attribute] = normalize(element.getAttribute(attribute));
-            element.setAttribute(attribute, translate(stored[attribute]));
+            const nextValue = translate(stored[attribute]);
+            if (element.getAttribute(attribute) !== nextValue) {
+                element.setAttribute(attribute, nextValue);
+            }
         });
     }
 
@@ -93,28 +111,44 @@
         if (!root || isApplying) return;
         isApplying = true;
 
-        const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
-            acceptNode(node) {
-                const parent = node.parentElement;
-                return parent && !["SCRIPT", "STYLE", "NOSCRIPT"].includes(parent.tagName)
-                    ? NodeFilter.FILTER_ACCEPT
-                    : NodeFilter.FILTER_REJECT;
-            }
-        });
+        try {
+            const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+                acceptNode(node) {
+                    const parent = node.parentElement;
+                    return parent &&
+                        !parent.closest("[data-i18n-skip]") &&
+                        !["SCRIPT", "STYLE", "NOSCRIPT"].includes(parent.tagName)
+                        ? NodeFilter.FILTER_ACCEPT
+                        : NodeFilter.FILTER_REJECT;
+                }
+            });
 
-        const textNodes = [];
-        while (walker.nextNode()) textNodes.push(walker.currentNode);
-        textNodes.forEach(translateTextNode);
+            const textNodes = [];
+            while (walker.nextNode()) textNodes.push(walker.currentNode);
+            textNodes.forEach(translateTextNode);
 
-        if (root.nodeType === Node.ELEMENT_NODE) translateAttributes(root);
-        root.querySelectorAll?.("[placeholder], [title], [aria-label], [alt]").forEach(translateAttributes);
-        syncLanguageControls();
-        isApplying = false;
+            if (root.nodeType === Node.ELEMENT_NODE) translateAttributes(root);
+            root.querySelectorAll?.("[placeholder], [title], [aria-label], [alt]").forEach(translateAttributes);
+            syncLanguageControls();
+        } finally {
+            isApplying = false;
+        }
+    }
+
+    function setControlAttribute(control, attribute, value) {
+        if (control.getAttribute(attribute) !== value) {
+            control.setAttribute(attribute, value);
+        }
     }
 
     function syncLanguageControls() {
         document.querySelectorAll("[data-language-switcher]").forEach((control) => {
-            control.value = currentLanguage;
+            if (control.value !== currentLanguage) {
+                control.value = currentLanguage;
+            }
+            const label = translate("Select language");
+            setControlAttribute(control, "aria-label", label);
+            setControlAttribute(control, "title", label);
         });
     }
 
@@ -124,7 +158,7 @@
         saveLanguage(language);
         await loadCatalog(language);
 
-        document.documentElement.lang = language === "or" ? "or" : language;
+        document.documentElement.lang = languageMeta[language].htmlLang;
         document.documentElement.dataset.language = language;
         document.title = translate(originalDocumentTitle);
         translateRoot(document.body);
@@ -149,7 +183,10 @@
             roots.forEach((root) => translateRoot(root));
         });
 
-        observer.observe(document.body, { childList: true, subtree: true });
+        observer.observe(document.body, {
+            childList: true,
+            subtree: true
+        });
     }
 
     async function init() {
@@ -175,7 +212,8 @@
         setLanguage,
         t: translate,
         translateRoot,
-        getLanguage: () => currentLanguage
+        getLanguage: () => currentLanguage,
+        getLanguages: () => supportedLanguages.map((code) => ({ code, ...languageMeta[code] }))
     };
 
     if (document.readyState === "loading") {

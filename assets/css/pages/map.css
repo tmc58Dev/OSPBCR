@@ -134,53 +134,133 @@
 
 .info-panel {
 
-    background-color: var(--card-bg);
+    overflow: hidden;
 
-    border: 5px solid var(--border);
+    background:
+        linear-gradient(180deg, rgba(255, 252, 246, 0.98), rgba(255, 247, 232, 0.96));
 
-    border-color: var(--border);
+    border: 5px solid #000000 !important;
 
-    box-shadow: var(--shadow-sm);
+    outline: 1px solid #000000;
 
-    padding: 35px;
+    outline-offset: 3px;
+
+    border-radius: 22px;
+
+    box-shadow:
+        0 18px 44px rgba(15, 23, 42, 0.12),
+        0 26px 62px rgba(146, 64, 14, 0.13);
+
+    padding: 24px;
 
     position: sticky;
 
     top: 120px;
 }
 
+.info-panel::before {
+
+    content: "";
+
+    display: block;
+
+    height: 8px;
+
+    margin: -24px -24px 20px;
+
+    background: linear-gradient(90deg, #f59e0b, #0ea5a5, #005b96);
+
+    border-bottom: 3px solid #000000;
+
+}
+
 #infoPanel h2 {
 
-    color: var(--primary);
+    color: #0b1220;
 
-    margin-bottom: 15px;
+    margin-bottom: 14px;
 
-    font-weight: 600;
+    font-size: clamp(1.75rem, 3.2vw, 2.7rem);
+
+    font-weight: 900;
+
+    letter-spacing: 0;
+
+    line-height: 1.12;
+
+    text-align: center;
 }
 
 #infoPanel hr {
 
-    margin: 15px 0 25px;
+    margin: 12px 0 18px;
 
     border: none;
 
-    border-top: 1px solid var(--border);
+    border-top: 2px solid #000000;
 }
 
 #infoPanel p {
 
-    margin-bottom: 18px;
+    display: grid;
 
-    color: var(--text-body);
+    gap: 6px;
 
-    line-height: 1.65;
+    margin-bottom: 12px;
+
+    padding: 13px 15px;
+
+    border: 2px solid #000000;
+
+    border-radius: 14px;
+
+    background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.92), rgba(255, 251, 242, 0.94));
+
+    color: #0b1220;
+
+    font-size: 0.95rem;
+
+    font-weight: 800;
+
+    line-height: 1.35;
+
+    box-shadow: 0 12px 28px rgba(146, 64, 14, 0.07);
 }
 
 #infoPanel strong {
 
-    color: var(--primary);
+    color: #111827;
 
-    font-weight: 600;
+    font-size: 0.72rem;
+
+    font-weight: 900;
+
+    letter-spacing: 0.08em;
+
+    text-transform: uppercase;
+}
+
+#infoPanel span[data-count-to] {
+
+    display: inline-block;
+
+    color: #000000;
+
+    font-size: clamp(1.25rem, 2.25vw, 1.8rem);
+
+    font-weight: 900;
+
+    line-height: 1;
+
+    letter-spacing: 0;
+
+}
+
+#infoPanel p:last-child {
+
+    margin-bottom: 0;
+
 }
 
 /* ======================================
@@ -201,7 +281,8 @@
 .info-panel:hover {
 
     box-shadow:
-    var(--shadow-md);
+        0 22px 52px rgba(15, 23, 42, 0.14),
+        0 32px 74px rgba(146, 64, 14, 0.16);
 }
 
 .map-container:hover {

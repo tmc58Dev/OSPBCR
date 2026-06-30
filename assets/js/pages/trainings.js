@@ -31,52 +31,137 @@ const trainingGalleryImages = [
     "assets/IMAGES_PDF_PPT_EXCEL/TRAININGS PAGE/DISTRICT/SLIDER_SHOW_DISTRICT_PHOTOS/slide_8_image_9.webp"
 ];
 
+const privateTrainingGalleryImages = [
+    "assets/IMAGES_PDF_PPT_EXCEL/TRAININGS PAGE/PRIVATE/SLIDER SHOW/CLN04016.webp",
+    "assets/IMAGES_PDF_PPT_EXCEL/TRAININGS PAGE/PRIVATE/SLIDER SHOW/CLN04032.webp",
+    "assets/IMAGES_PDF_PPT_EXCEL/TRAININGS PAGE/PRIVATE/SLIDER SHOW/CLN04043.webp",
+    "assets/IMAGES_PDF_PPT_EXCEL/TRAININGS PAGE/PRIVATE/SLIDER SHOW/CLN04044.webp",
+    "assets/IMAGES_PDF_PPT_EXCEL/TRAININGS PAGE/PRIVATE/SLIDER SHOW/CLN04071.webp",
+    "assets/IMAGES_PDF_PPT_EXCEL/TRAININGS PAGE/PRIVATE/SLIDER SHOW/CLN04093.webp",
+    "assets/IMAGES_PDF_PPT_EXCEL/TRAININGS PAGE/PRIVATE/SLIDER SHOW/CLN04094.webp",
+    "assets/IMAGES_PDF_PPT_EXCEL/TRAININGS PAGE/PRIVATE/SLIDER SHOW/CLN04100.webp",
+    "assets/IMAGES_PDF_PPT_EXCEL/TRAININGS PAGE/PRIVATE/SLIDER SHOW/CLN04101.webp",
+    "assets/IMAGES_PDF_PPT_EXCEL/TRAININGS PAGE/PRIVATE/SLIDER SHOW/CLN04175.webp",
+    "assets/IMAGES_PDF_PPT_EXCEL/TRAININGS PAGE/PRIVATE/SLIDER SHOW/CLN04181.webp",
+    "assets/IMAGES_PDF_PPT_EXCEL/TRAININGS PAGE/PRIVATE/SLIDER SHOW/CLN04191.webp",
+    "assets/IMAGES_PDF_PPT_EXCEL/TRAININGS PAGE/PRIVATE/SLIDER SHOW/CLN04197.webp",
+    "assets/IMAGES_PDF_PPT_EXCEL/TRAININGS PAGE/PRIVATE/SLIDER SHOW/CLN04241.webp",
+    "assets/IMAGES_PDF_PPT_EXCEL/TRAININGS PAGE/PRIVATE/SLIDER SHOW/CLN04418.webp",
+    "assets/IMAGES_PDF_PPT_EXCEL/TRAININGS PAGE/PRIVATE/SLIDER SHOW/CLN04553.webp",
+    "assets/IMAGES_PDF_PPT_EXCEL/TRAININGS PAGE/PRIVATE/SLIDER SHOW/CLN04607.webp"
+];
+
+const districtTrainingPdfs = [
+    {
+        district: "Jagatsinghpur",
+        title: "Cancer Registry Training Program Report",
+        path: "assets/IMAGES_PDF_PPT_EXCEL/TRAININGS PAGE/DISTRICT/TRAINING PDFS/DISTRICT WISE TRAINING PDF/Report of Cancer Registry Training Program , Jagatsinghpur (08.05.2026).pdf"
+    },
+    {
+        district: "Koraput",
+        title: "Cancer Registry Training",
+        path: "assets/IMAGES_PDF_PPT_EXCEL/TRAININGS PAGE/DISTRICT/TRAINING PDFS/DISTRICT WISE TRAINING PDF/Cancer Registry Training at Koraput District.pdf"
+    },
+    {
+        district: "Malkangiri",
+        title: "Cancer Registry Training",
+        path: "assets/IMAGES_PDF_PPT_EXCEL/TRAININGS PAGE/DISTRICT/TRAINING PDFS/DISTRICT WISE TRAINING PDF/Cancer Registry Training at Malkangiri District.pdf"
+    },
+    {
+        district: "Mayurbhanj",
+        title: "Population Based Cancer Registry Odisha",
+        path: "assets/IMAGES_PDF_PPT_EXCEL/TRAININGS PAGE/DISTRICT/TRAINING PDFS/DISTRICT WISE TRAINING PDF/Population Based Cancer Registry Odisha Mayurbhanj.pdf"
+    },
+    {
+        district: "Nayagarh",
+        title: "PBCR Odisha Report",
+        path: "assets/IMAGES_PDF_PPT_EXCEL/TRAININGS PAGE/DISTRICT/TRAINING PDFS/DISTRICT WISE TRAINING PDF/PBCR Odisha Report Nayagarh District.pdf"
+    },
+    {
+        district: "Puri",
+        title: "Population Based Cancer Registry Odisha",
+        path: "assets/IMAGES_PDF_PPT_EXCEL/TRAININGS PAGE/DISTRICT/TRAINING PDFS/DISTRICT WISE TRAINING PDF/Population Based Cancer Registry Odisha - Puri District.pdf"
+    }
+].sort((left, right) => left.district.localeCompare(right.district));
+
+const t = (key, replacements = {}) => {
+    if (window.i18n) return window.i18n.t(key, replacements);
+
+    return Object.entries(replacements).reduce(
+        (value, [name, replacement]) => value.replaceAll(`{{${name}}}`, replacement),
+        key
+    );
+};
+
 document.addEventListener("DOMContentLoaded", async () => {
 
     initializeDistrictTrainingToggle();
     renderTrainingGallery();
+    renderPrivateTrainingGallery();
     initializeTrainingCarousel();
     await initializeDistrictTrainingExplorer();
+    await initializeDistrictPdfCarousel();
 
 });
 
 function initializeDistrictTrainingToggle() {
 
-    const expandableShell = document.querySelector("[data-training-expandable]");
-    const toggleButton = document.querySelector("[data-training-toggle]");
-    const expandableContent = document.querySelector("[data-training-expandable-content]");
+    const expandableShells = Array.from(document.querySelectorAll("[data-training-expandable]"));
 
-    if (!expandableShell || !toggleButton || !expandableContent) {
+    if (expandableShells.length === 0) {
         return;
     }
 
-    function syncExpandedHeight() {
-        if (!expandableShell.classList.contains("is-expanded")) {
+    expandableShells.forEach((expandableShell) => {
+        const toggleButton = expandableShell.querySelector("[data-training-toggle]");
+        const expandableContent = expandableShell.querySelector("[data-training-expandable-content]");
+
+        if (!toggleButton || !expandableContent) {
             return;
         }
 
-        expandableShell.style.setProperty(
-            "--district-expanded-height",
-            `${expandableContent.scrollHeight}px`
-        );
-    }
+        function syncExpandedHeight() {
+            if (!expandableShell.classList.contains("is-expanded")) {
+                return;
+            }
 
-    toggleButton.addEventListener("click", () => {
-        const isExpanded = expandableShell.classList.toggle("is-expanded");
-
-        if (isExpanded) {
             expandableShell.style.setProperty(
                 "--district-expanded-height",
                 `${expandableContent.scrollHeight}px`
             );
         }
 
-        toggleButton.textContent = isExpanded ? "Show Less" : "Learn More";
-        toggleButton.setAttribute("aria-expanded", String(isExpanded));
-        expandableContent.setAttribute("aria-hidden", String(!isExpanded));
-    });
+        function scheduleExpandedHeightSync() {
+            window.requestAnimationFrame(() => {
+                syncExpandedHeight();
+                window.setTimeout(syncExpandedHeight, 250);
+                window.setTimeout(syncExpandedHeight, 900);
+            });
+        }
 
-    window.addEventListener("resize", syncExpandedHeight);
+        toggleButton.addEventListener("click", () => {
+            const isExpanded = expandableShell.classList.toggle("is-expanded");
+
+            if (isExpanded) {
+                scheduleExpandedHeightSync();
+            }
+
+            toggleButton.textContent = isExpanded ? t("Show Less") : t("Learn More");
+            toggleButton.setAttribute("aria-expanded", String(isExpanded));
+            expandableContent.setAttribute("aria-hidden", String(!isExpanded));
+        });
+
+        window.addEventListener("resize", syncExpandedHeight);
+
+        if ("ResizeObserver" in window) {
+            const resizeObserver = new ResizeObserver(() => {
+                syncExpandedHeight();
+            });
+
+            resizeObserver.observe(expandableContent);
+        }
+
+    });
 
 }
 
@@ -90,7 +175,23 @@ function renderTrainingGallery() {
 
     track.innerHTML = trainingGalleryImages.map((imagePath, index) => `
         <article class="gallery-slide">
-            <img src="${imagePath}" alt="District hospital training photograph ${index + 1}">
+            <img src="${imagePath}" alt="${t("District hospital training photograph {{number}}", { number: index + 1 })}">
+        </article>
+    `).join("");
+
+}
+
+function renderPrivateTrainingGallery() {
+
+    const track = document.getElementById("privateTrainingGalleryTrack");
+
+    if (!track) {
+        return;
+    }
+
+    track.innerHTML = privateTrainingGalleryImages.map((imagePath, index) => `
+        <article class="gallery-slide">
+            <img src="${imagePath}" alt="${t("Private hospital training photograph {{number}}", { number: index + 1 })}">
         </article>
     `).join("");
 
@@ -98,82 +199,84 @@ function renderTrainingGallery() {
 
 function initializeTrainingCarousel() {
 
-    const carousel = document.querySelector("[data-training-carousel]");
+    const carousels = Array.from(document.querySelectorAll("[data-training-carousel]"));
 
-    if (!carousel) {
+    if (carousels.length === 0) {
         return;
     }
 
-    const track = carousel.querySelector(".gallery-carousel-track");
-    const slides = Array.from(carousel.querySelectorAll(".gallery-slide"));
-    const controls = Array.from(carousel.querySelectorAll(".gallery-nav"));
+    carousels.forEach((carousel) => {
+        const track = carousel.querySelector(".gallery-carousel-track");
+        const slides = Array.from(carousel.querySelectorAll(".gallery-slide"));
+        const controls = Array.from(carousel.querySelectorAll(".gallery-nav"));
 
-    if (!track || slides.length === 0 || controls.length === 0) {
-        return;
-    }
-
-    let visibleSlides = window.innerWidth <= 767 ? 1 : 2;
-    let currentIndex = 0;
-    let autoSlideTimer = null;
-
-    function getMaxIndex() {
-        return Math.max(0, slides.length - visibleSlides);
-    }
-
-    function updateCarousel() {
-        const translateUnit = 100 / visibleSlides;
-        track.style.transform = `translateX(-${currentIndex * translateUnit}%)`;
-    }
-
-    function moveCarousel(direction) {
-        const maxIndex = getMaxIndex();
-
-        if (direction > 0) {
-            currentIndex = currentIndex >= maxIndex ? 0 : Math.min(currentIndex + visibleSlides, maxIndex);
-        } else {
-            currentIndex = currentIndex <= 0 ? maxIndex : Math.max(currentIndex - visibleSlides, 0);
-        }
-
-        updateCarousel();
-    }
-
-    function startAutoSlide() {
-        stopAutoSlide();
-        autoSlideTimer = window.setInterval(() => moveCarousel(1), 3500);
-    }
-
-    function stopAutoSlide() {
-        if (autoSlideTimer) {
-            window.clearInterval(autoSlideTimer);
-            autoSlideTimer = null;
-        }
-    }
-
-    controls.forEach((button) => {
-        button.addEventListener("click", () => {
-            stopAutoSlide();
-            moveCarousel(Number(button.dataset.direction));
-            startAutoSlide();
-        });
-    });
-
-    window.addEventListener("resize", () => {
-        const nextVisibleSlides = window.innerWidth <= 767 ? 1 : 2;
-
-        if (nextVisibleSlides === visibleSlides) {
+        if (!track || slides.length === 0 || controls.length === 0) {
             return;
         }
 
-        visibleSlides = nextVisibleSlides;
-        currentIndex = 0;
+        let visibleSlides = window.innerWidth <= 767 ? 1 : 2;
+        let currentIndex = 0;
+        let autoSlideTimer = null;
+
+        function getMaxIndex() {
+            return Math.max(0, slides.length - visibleSlides);
+        }
+
+        function updateCarousel() {
+            const translateUnit = 100 / visibleSlides;
+            track.style.transform = `translateX(-${currentIndex * translateUnit}%)`;
+        }
+
+        function moveCarousel(direction) {
+            const maxIndex = getMaxIndex();
+
+            if (direction > 0) {
+                currentIndex = currentIndex >= maxIndex ? 0 : Math.min(currentIndex + visibleSlides, maxIndex);
+            } else {
+                currentIndex = currentIndex <= 0 ? maxIndex : Math.max(currentIndex - visibleSlides, 0);
+            }
+
+            updateCarousel();
+        }
+
+        function startAutoSlide() {
+            stopAutoSlide();
+            autoSlideTimer = window.setInterval(() => moveCarousel(1), 3500);
+        }
+
+        function stopAutoSlide() {
+            if (autoSlideTimer) {
+                window.clearInterval(autoSlideTimer);
+                autoSlideTimer = null;
+            }
+        }
+
+        controls.forEach((button) => {
+            button.addEventListener("click", () => {
+                stopAutoSlide();
+                moveCarousel(Number(button.dataset.direction));
+                startAutoSlide();
+            });
+        });
+
+        window.addEventListener("resize", () => {
+            const nextVisibleSlides = window.innerWidth <= 767 ? 1 : 2;
+
+            if (nextVisibleSlides === visibleSlides) {
+                return;
+            }
+
+            visibleSlides = nextVisibleSlides;
+            currentIndex = 0;
+            updateCarousel();
+        });
+
+        carousel.addEventListener("mouseenter", stopAutoSlide);
+        carousel.addEventListener("mouseleave", startAutoSlide);
+
         updateCarousel();
+        startAutoSlide();
     });
-
-    carousel.addEventListener("mouseenter", stopAutoSlide);
-    carousel.addEventListener("mouseleave", startAutoSlide);
-
-    updateCarousel();
-    startAutoSlide();
 
 }
 
@@ -192,12 +295,12 @@ async function initializeDistrictTrainingExplorer() {
         const districts = payload.districts || [];
 
         if (districts.length === 0) {
-            details.innerHTML = `<p>No district training data is available right now.</p>`;
+            details.innerHTML = `<p>${t("No district training data is available right now.")}</p>`;
             return;
         }
 
         select.innerHTML = districts.map((district) => `
-            <option value="${district.slug}">${district.name}</option>
+            <option value="${district.slug}">${t(district.name)}</option>
         `).join("");
 
         let currentDistrictIndex = 0;
@@ -214,12 +317,13 @@ async function initializeDistrictTrainingExplorer() {
 
             currentDistrictIndex = districtIndex >= 0 ? districtIndex : 0;
             select.value = district.slug;
+            const districtLabel = t(district.name);
 
             const participantRows = district.participants.map((participant, index) => `
                 <tr>
-                    ${index === 0 ? `<td rowspan="${district.participants.length}">${district.name}</td>` : ""}
+                    ${index === 0 ? `<td rowspan="${district.participants.length}">${districtLabel}</td>` : ""}
                     <td>${participant.name}</td>
-                    <td>${participant.designation}</td>
+                    <td>${t(participant.designation)}</td>
                 </tr>
             `).join("");
 
@@ -227,19 +331,19 @@ async function initializeDistrictTrainingExplorer() {
                 <article class="district-detail-card">
                     <div class="district-photo-panel">
                         <div class="district-photo-meta">
-                            <h4>${district.name}</h4>
+                            <h4>${districtLabel}</h4>
                         </div>
-                        <img src="${encodeURI(district.photo)}" alt="${district.name} district hospital training group photo">
+                        <img src="${encodeURI(district.photo)}" alt="${t("{{district}} district hospital training group photo", { district: districtLabel })}">
                     </div>
                     <div class="district-table-panel">
-                        <h4>${district.name} Participants</h4>
+                        <h4>${t("{{district}} Participants", { district: districtLabel })}</h4>
                         <div class="district-participants-wrapper">
                             <table class="district-participants-table">
                                 <thead>
                                     <tr>
-                                        <th>District</th>
-                                        <th>Name</th>
-                                        <th>Designation</th>
+                                        <th>${t("District")}</th>
+                                        <th>${t("Name")}</th>
+                                        <th>${t("Designation")}</th>
                                     </tr>
                                 </thead>
                                 <tbody>${participantRows}</tbody>
@@ -277,7 +381,166 @@ async function initializeDistrictTrainingExplorer() {
 
     } catch (error) {
         console.error("Failed to load district training data", error);
-        details.innerHTML = `<p>District training data could not be loaded.</p>`;
+        details.innerHTML = `<p>${t("District training data could not be loaded.")}</p>`;
+    }
+
+}
+
+async function initializeDistrictPdfCarousel() {
+
+    const carousel = document.querySelector("[data-district-pdf-carousel]");
+    const track = document.getElementById("districtPdfTrack");
+    const select = document.getElementById("districtPdfFilter");
+
+    if (!carousel || !track || !select) {
+        return;
+    }
+
+    try {
+        const response = await fetch("assets/data/district-trainings.json");
+        const payload = await response.json();
+        const districts = (payload.districts || [])
+            .map((item) => item.name)
+            .sort((left, right) => left.localeCompare(right));
+
+        if (districts.length === 0) {
+            track.innerHTML = `
+                <article class="district-pdf-slide">
+                    <div class="district-pdf-meta">
+                        <h4>${t("District PDF records are not available right now.")}</h4>
+                    </div>
+                </article>
+            `;
+            return;
+        }
+
+        const pdfByDistrict = new Map(
+            districtTrainingPdfs.map((item) => [item.district, item])
+        );
+
+        const districtPdfSlides = districts.map((districtName) => ({
+            district: districtName,
+            pdf: pdfByDistrict.get(districtName) || null
+        }));
+
+        select.innerHTML = districtPdfSlides.map((item) => `
+            <option value="${item.district}">${t(item.district)}</option>
+        `).join("");
+
+        track.innerHTML = districtPdfSlides.map((item) => {
+            const districtLabel = t(item.district);
+
+            if (!item.pdf) {
+                return `
+                    <article class="district-pdf-slide">
+                        <div class="district-pdf-meta">
+                            <span class="district-pdf-label">${districtLabel}</span>
+                            <h4>${t("District Training PDF")}</h4>
+                            <p>${t("{{district}} district PDF will be added soon.", { district: districtLabel })}</p>
+                        </div>
+                        <div class="district-pdf-frame-shell district-pdf-placeholder">
+                            <div class="district-pdf-placeholder-copy">
+                                <h4>${districtLabel}</h4>
+                                <p>${t("PDF not available yet.")}</p>
+                            </div>
+                        </div>
+                    </article>
+                `;
+            }
+
+            const pdfPath = encodeURI(item.pdf.path);
+
+            return `
+                <article class="district-pdf-slide">
+                    <div class="district-pdf-meta">
+                        <span class="district-pdf-label">${districtLabel}</span>
+                        <h4>${t(item.pdf.title)}</h4>
+                        <p>${t("{{district}} district in-person training PDF record.", { district: districtLabel })}</p>
+                        <div class="district-pdf-actions">
+                            <a class="view-btn training-report-btn" href="${pdfPath}" target="_blank" rel="noopener noreferrer">${t("View PDF")}</a>
+                            <a class="download-btn training-report-btn" href="${pdfPath}" download>${t("Download PDF")}</a>
+                        </div>
+                    </div>
+                    <div class="district-pdf-frame-shell">
+                        <iframe
+                            src="${pdfPath}#toolbar=0&navpanes=0&scrollbar=0"
+                            title="${t("{{district}} district training PDF preview", { district: districtLabel })}"
+                            loading="lazy"
+                        ></iframe>
+                    </div>
+                </article>
+            `;
+        }).join("");
+
+        const slides = Array.from(track.querySelectorAll(".district-pdf-slide"));
+        const controls = Array.from(carousel.querySelectorAll(".gallery-nav"));
+        let currentIndex = 0;
+        let autoSlideTimer = null;
+
+        if (slides.length === 0) {
+            return;
+        }
+
+        function updateCarousel() {
+            track.style.transform = `translateX(-${currentIndex * 100}%)`;
+            select.value = districtPdfSlides[currentIndex].district;
+        }
+
+        function moveCarousel(direction) {
+            currentIndex = (currentIndex + direction + slides.length) % slides.length;
+            updateCarousel();
+        }
+
+        function goToDistrict(districtName) {
+            const nextIndex = districtPdfSlides.findIndex((item) => item.district === districtName);
+
+            if (nextIndex < 0) {
+                return;
+            }
+
+            currentIndex = nextIndex;
+            updateCarousel();
+        }
+
+        function stopAutoSlide() {
+            if (autoSlideTimer) {
+                window.clearInterval(autoSlideTimer);
+                autoSlideTimer = null;
+            }
+        }
+
+        function startAutoSlide() {
+            stopAutoSlide();
+            autoSlideTimer = window.setInterval(() => moveCarousel(1), 4500);
+        }
+
+        controls.forEach((button) => {
+            button.addEventListener("click", () => {
+                moveCarousel(Number(button.dataset.direction));
+                startAutoSlide();
+            });
+        });
+
+        select.addEventListener("change", (event) => {
+            goToDistrict(event.target.value);
+            startAutoSlide();
+        });
+
+        carousel.addEventListener("mouseenter", stopAutoSlide);
+        carousel.addEventListener("mouseleave", startAutoSlide);
+
+        updateCarousel();
+        startAutoSlide();
+
+    } catch (error) {
+        console.error("Failed to load district PDF data", error);
+        track.innerHTML = `
+            <article class="district-pdf-slide">
+                <div class="district-pdf-meta">
+                    <h4>${t("District PDF data could not be loaded.")}</h4>
+                </div>
+            </article>
+        `;
     }
 
 }

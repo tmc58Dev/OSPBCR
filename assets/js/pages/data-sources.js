@@ -98,6 +98,15 @@ const rowsPerPage = 8;
 
 let filteredData = [...facilities];
 
+const t = (key, replacements = {}) => {
+    if (window.i18n) return window.i18n.t(key, replacements);
+
+    return Object.entries(replacements).reduce(
+        (value, [name, replacement]) => value.replaceAll(`{{${name}}}`, replacement),
+        key
+    );
+};
+
 function renderFacilities() {
 
     tableBody.innerHTML = "";
@@ -117,11 +126,11 @@ function renderFacilities() {
 
         <tr>
 
-            <td>${item.district}</td>
+            <td>${t(item.district)}</td>
 
             <td>${item.hospital}</td>
 
-            <td>${item.type}</td>
+            <td>${t(item.type)}</td>
 
             <td>${item.cases}</td>
 
@@ -131,9 +140,7 @@ function renderFacilities() {
 
     });
 
-    pageInfo.textContent = window.i18n
-        ? window.i18n.t("Page {{page}}", { page: currentPage })
-        : `Page ${currentPage}`;
+    pageInfo.textContent = t("Page {{page}}", { page: currentPage });
 
 }
 

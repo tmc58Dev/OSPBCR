@@ -46,6 +46,15 @@ const participants = [
 
 const grid = document.getElementById("participantsGrid");
 
+const t = (key, replacements = {}) => {
+    if (window.i18n) return window.i18n.t(key, replacements);
+
+    return Object.entries(replacements).reduce(
+        (value, [name, replacement]) => value.replaceAll(`{{${name}}}`, replacement),
+        key
+    );
+};
+
 function renderParticipants(data) {
 
     grid.innerHTML = "";
@@ -67,11 +76,11 @@ function renderParticipants(data) {
                 </h3>
 
                 <p class="participant-designation">
-                    ${person.designation}
+                    ${t(person.designation)}
                 </p>
 
                 <p class="participant-district">
-                    ${person.district}
+                    ${t(person.district)}
                 </p>
 
             </div>

@@ -19,6 +19,15 @@ L.tileLayer(
 // UPDATE SIDE PANEL
 // =====================================
 
+const t = (key, replacements = {}) => {
+    if (window.i18n) return window.i18n.t(key, replacements);
+
+    return Object.entries(replacements).reduce(
+        (value, [name, replacement]) => value.replaceAll(`{{${name}}}`, replacement),
+        key
+    );
+};
+
 function updatePanel(districtName) {
 
     const panel = document.getElementById("infoPanel");
@@ -28,36 +37,41 @@ function updatePanel(districtName) {
     if (!data) {
 
         panel.innerHTML = `
-            <h2>${districtName}</h2>
+            <h2>${t(districtName)}</h2>
             <hr>
 
-            <p><strong>Population:</strong> Not Available</p>
-            <p><strong>Cancer Cases:</strong> Not Available</p>
-            <p><strong>Last Updated:</strong> Not Available</p>
+            <p><strong>${t("Population:")}</strong> ${t("Not Available")}</p>
+            <p><strong>${t("Cancer Cases:")}</strong> ${t("Not Available")}</p>
+            <p><strong>${t("Last Updated:")}</strong> ${t("Not Available")}</p>
         `;
 
         return;
     }
 
+    const populationValue = Number(data.population.replace(/,/g, ""));
+    const cancerCasesValue = Number(data.cancerCases.replace(/,/g, ""));
+
     panel.innerHTML = `
-        <h2>${districtName}</h2>
+        <h2>${t(districtName)}</h2>
         <hr>
 
         <p>
-            <strong>Population:</strong>
-            ${data.population}
+            <strong>${t("Population:")}</strong>
+            <span data-count-to="${populationValue}" data-count-format="locale">${data.population}</span>
         </p>
 
         <p>
-            <strong>Cancer Cases:</strong>
-            ${data.cancerCases}
+            <strong>${t("Cancer Cases:")}</strong>
+            <span data-count-to="${cancerCasesValue}" data-count-format="locale">${data.cancerCases}</span>
         </p>
 
         <p>
-            <strong>Last Updated:</strong>
+            <strong>${t("Last Updated:")}</strong>
             ${data.updated}
         </p>
     `;
+
+    window.initializeCountUp?.(panel);
 }
 
 let selectedDistrict = "Khordha";
